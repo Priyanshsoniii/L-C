@@ -1,0 +1,23 @@
+Problem Domain Names:
+MasterFormatRecords
+UniFormatRecords
+HansenRiceDashboard
+CheckUOM
+CheckCustomerLevel
+ReferentialUnits
+ProcessedUnits
+PaymentHistory
+BatchTimeline
+SourceName
+
+Solution Domain Names:
+GetServerName
+AuthenticateUser
+CheckOnedriveReference
+InitializeStartTime
+ConnectSqlDatabase
+InitializeCodeGenerator
+GetTableFromErrorPowerSeedAutomate
+ParseInputExcel
+DeleteFlowStatusHistory
+AddRowIntoFlowStatusExcel
