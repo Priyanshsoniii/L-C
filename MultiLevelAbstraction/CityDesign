@@ -1,0 +1,63 @@
+            Zones               
+                    Building                     
+                        addBuilding()
+                        addLocalUtilities()                                 
+                                            ResidentialZone                              
+                                                                @addBuilding              
+                                                                    house
+                                                                    apartmentComplex
+
+                                                                @addLocalUtilities
+                                                                    waterSupply
+                                                                    electricity
+                                                                    internet
+
+
+
+                                            CommercialZone
+
+                                                                @addBuilding
+                                                                    shoppingMall
+                                                                    shops
+
+                                                                @addLocalUtilities 
+                                                                    powerGrid
+                                                                    sewage   
+
+                                            IndustrialZone                        
+
+                                
+                                
+City                            
+
+
+
+
+
+            Transport                                   
+                    Vehicle                     
+                        addVehicle()
+                        addTransportServices() 
+
+                                            PublicTransport                              
+                                                                @addVehicle              
+                                                                    bus
+                                                                    train
+                                                                    taxi
+
+
+                                                                @addTransportServices    
+                                                                    parking
+                                                                    vehicleRepair
+
+
+                                            Logistics
+                                                                @addVehicle              
+                                                                    cargoVans
+                                                                    cargoTampo
+
+                                                                @addTransportServices    
+                                                                    droneServices                      
+
+                                
+                                
