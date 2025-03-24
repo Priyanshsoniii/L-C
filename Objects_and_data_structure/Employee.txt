@@ -1,0 +1,31 @@
+Class Employee {
+
+string name;
+
+ int age;
+
+ float salary;
+
+public : string getName();
+
+void setName(string name);
+
+ int getAge();
+
+void setAge(int age);
+
+float getSalary();
+
+void setSalary(float salary);
+
+ };
+
+Employee employee;
+
+ Is 'employee' an object or a data structure? Why?
+
+ // employee is a data-structure.
+ // As for an Object-Oriendted object. It must hide data and expose behaviour.
+ // The employee class only provides getter and setter to simply manipulate data like procedural design.
+ // Also, instead of encapsulating data and behaviour, employee is just acting as a passive container.
+    
