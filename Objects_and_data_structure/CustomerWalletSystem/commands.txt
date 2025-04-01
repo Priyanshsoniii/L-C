@@ -1,0 +1,14 @@
+to run main.cpp -> go to src 
+then,
+g++ *.cpp -I../include
+./a.out 
+
+to run wallettest.cpp -> go to test
+then, 
+g++ -std=c++17 -isystem /opt/homebrew/include -L/opt/homebrew/lib -lgtest -lgtest_main -I../include ../src/Wallet.cpp  ../src/Customer.cpp WalletTests.cpp -o test
+./test
+
+to run Customertest.cpp -> go to test
+then,
+g++ -std=c++17 -isystem /opt/homebrew/include -L/opt/homebrew/lib -lgtest -lgtest_main -I../include ../src/Wallet.cpp  ../src/Customer.cpp CustomerTests.cpp -o customerTest
+./customerTest
