@@ -35,3 +35,8 @@ class DailyLimitExceededException : public ATMException {
 public:
     DailyLimitExceededException() : ATMException("Daily withdrawal limit exceeded.") {}
 };
+
+class InvalidAmountException : public ATMException {
+    public:
+        InvalidAmountException() : ATMException("Invalid withdrawal amount. Must be greater than zero.") {}
+    };

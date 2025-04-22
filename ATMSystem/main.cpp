@@ -5,7 +5,12 @@
 #include "models/Account.h"
 #include "models/ATM.h"
 #include "services/ATMService.h"
+#include "services/CardService.h"
 #include "exceptions/Exceptions.h"
+
+bool isCardBlocked(const ATMException& e) {
+    return dynamic_cast<const CardBlockedException*>(&e) != nullptr;
+}
 
 int main() {
     srand(static_cast<unsigned>(time(nullptr)));
@@ -14,6 +19,7 @@ int main() {
     ATM atmMachine(2000.0);
     Card userCard("1234");
     ATMService service(account, atmMachine);
+    CardService cardService(userCard);
 
     std::cout << "Welcome to the ATM Simulator\n";
 
@@ -24,13 +30,15 @@ int main() {
             std::cin >> enteredPIN;
 
             try {
-                userCard.validatePIN(enteredPIN);
+                cardService.validatePIN(enteredPIN);
                 break;
-            } catch (const InvalidPINException& e) {
+            } catch (const ATMException& e) {
                 std::cerr << e.what() << "\n";
-            } catch (const CardBlockedException& e) {
-                std::cerr << e.what() << "\n";
-                return 1;
+    
+                if (isCardBlocked(e)) {
+                    std::cerr << "Your card is now blocked. Please contact the bank.\n";
+                    return 1;
+                }
             }
         }
 

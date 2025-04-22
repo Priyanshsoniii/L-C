@@ -10,7 +10,12 @@ public:
     explicit ATM(double initialCash) : cashAvailable(initialCash) {}
 
     void dispenseCash(double amount) override {
-        if (amount > cashAvailable) throw InsufficientATMFundsException();
+        if (amount > cashAvailable) {
+            std::cerr << "ATM has insufficient funds. ATM has: $" << cashAvailable
+                      << ", Requested: $" << amount << std::endl;
+            
+            throw InsufficientATMFundsException();
+        }
         cashAvailable -= amount;
     }
 

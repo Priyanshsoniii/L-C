@@ -15,6 +15,8 @@ public:
     void withdrawCash(double amount) override {
         if (!atm.simulateServerConnection()) throw ServerConnectionException();
 
+        if (amount <= 0) throw InvalidAmountException();
+        
         account.withdraw(amount);
         atm.dispenseCash(amount);
 
