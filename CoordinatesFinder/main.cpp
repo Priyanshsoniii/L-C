@@ -10,7 +10,7 @@ int main() {
 
         GeoService geoService;
 
-        auto [lat, lon] = geoService.getCoordinates(place);
+        auto [lat, lon] = geoService.fetchCoordinatesFromPlaceName(place);
 
         std::cout << "Latitude: " << lat << "\n";
         std::cout << "Longitude: " << lon << "\n";

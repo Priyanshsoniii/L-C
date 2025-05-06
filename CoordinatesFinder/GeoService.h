@@ -2,13 +2,13 @@
 #define GEOSERVICE_H
 
 #include <string>
+#include <utility>
 
 class GeoService {
 public:
     GeoService() = default;
-    ~GeoService() = default;
 
-    std::pair<double, double> getCoordinates(const std::string& place) const;
+    std::pair<double, double> fetchCoordinatesFromPlaceName(const std::string& place) const;
 };
 
 #endif

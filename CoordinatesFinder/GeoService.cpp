@@ -4,30 +4,29 @@
 
 using json = nlohmann::json;
 
-std::pair<double, double> GeoService::getCoordinates(const std::string& place) const {
+std::pair<double, double> GeoService::fetchCoordinatesFromPlaceName(const std::string& place) const {
     std::string encodedPlace;
-    for (char c : place) {
-        encodedPlace += (c == ' ') ? "%20" : std::string(1, c);
+    for (char character : place) {
+        encodedPlace += (character == ' ') ? "%20" : std::string(1, character);
     }
 
     std::string url = "https://geocode.maps.co/search?q=" + encodedPlace;
 
-    cpr::Response r = cpr::Get(cpr::Url{url});
+    cpr::Response response = cpr::Get(cpr::Url{url});
 
-    if (r.status_code != 200) {
-        throw std::runtime_error("HTTP request failed with status code: " + std::to_string(r.status_code));
+    if (response.status_code != 200) {
+        throw std::runtime_error("HTTP request failed with status code: " + std::to_string(response.status_code));
     }
 
-    json response = json::parse(r.text);
+    json jsonResponse = json::parse(response.text);
 
-    if (response.empty()) {
+    if (jsonResponse.empty()) {
         throw std::runtime_error("No results found for the input place.");
     }
 
-    auto result = response[0];
+    auto result = jsonResponse[0];
 
     try {
-        
         double lat = std::stod(result["lat"].get<std::string>());
         double lon = std::stod(result["lon"].get<std::string>());
 
