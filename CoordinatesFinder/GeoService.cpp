@@ -1,32 +1,35 @@
 #include "GeoService.h"
 #include <stdexcept>
+#include "GeoExceptions.h"
 
-GeoService::GeoService(const IHttpClient& httpClient, const IJsonParser& jsonParser, const IUrlEncoder& urlEncoder)
-    : httpClient(httpClient), jsonParser(jsonParser), urlEncoder(urlEncoder) {}
+GeoService::GeoService(const IHttpClient& httpClient,
+                       const IJsonParser& jsonParser,
+                       const IUrlEncoder& urlEncoder)
+    : httpClient_(httpClient), jsonParser_(jsonParser), urlEncoder_(urlEncoder) {}
 
-    
-std::pair<double, double> GeoService::fetchCoordinatesFromPlaceName(const std::string& place) const {
-    std::string encodedPlace = urlEncoder.encode(place);
-    std::string url = "https://geocode.maps.co/search?q=" + encodedPlace;
-    std::string responseText = httpClient.get(url);
+std::pair<double, double> GeoService::getCoordinatesFromPlaceName(const std::string& placeName) const {
+    std::string encodedPlace = urlEncoder_.encode(placeName);
+    std::string requestUrl = "https://geocode.maps.co/search?q=" + encodedPlace;
+
+    std::string responseText = httpClient_.get(requestUrl);
     return parseCoordinates(responseText);
 }
 
 
 std::pair<double, double> GeoService::parseCoordinates(const std::string& responseText) const {
-    auto jsonResponse = jsonParser.parse(responseText);
+    auto json = jsonParser_.parse(responseText);
 
-    if (jsonResponse.empty()) {
-        throw std::runtime_error("No results found for the input place.");
+    if (json.empty()) {
+        throw NoResultsFoundException();
     }
 
-    auto result = jsonResponse[0];
+    const auto& result = json[0];
 
     try {
         double latitude = std::stod(result["lat"].get<std::string>());
         double longitude = std::stod(result["lon"].get<std::string>());
-        return std::make_pair(latitude, longitude);
+        return {latitude, longitude};
     } catch (const std::exception& e) {
-        throw std::runtime_error("Error converting latitude or longitude to double: " + std::string(e.what()));
+        throw InvalidCoordinatesFormatException(e.what());
     }
 }

@@ -1,57 +1,55 @@
 #include <iostream>
-#include <string>
 #include "GeoService.h"
 #include "CprHttpClient.h"
 #include "NlohmannJsonParser.h"
 #include "UrlEncoder.h"
 
-class UserInterface {
+class ConsoleUI {
 public:
-    std::string getPlaceName() const {
+    std::string promptPlaceName() const {
         std::cout << "Enter place: ";
-        std::string place;
-        std::getline(std::cin, place);
-        return place;
+        std::string placeName;
+        std::getline(std::cin, placeName);
+        return placeName;
     }
 
-    void displayCoordinates(double latitude, double longitude) const {
-        std::cout << "Latitude: " << latitude << "\n";
-        std::cout << "Longitude: " << longitude << "\n";
+    void showCoordinates(double lat, double lon) const {
+        std::cout << "Latitude: " << lat << "\nLongitude: " << lon << '\n';
     }
 
-    void displayError(const std::string& errorMessage) const {
-        std::cerr << "Program failed: " << errorMessage << "\n";
+    void showError(const std::string& message) const {
+        std::cerr << "Error: " << message << '\n';
     }
 };
 
-class CoordinatesFinderApp {
+class CoordinatesApp {
 public:
-    CoordinatesFinderApp(const GeoService& geoService, const UserInterface& ui)
-        : geoService(geoService), ui(ui) {}
+    CoordinatesApp(const GeoService& service, const ConsoleUI& ui)
+        : geoService_(service), ui_(ui) {}
 
     void run() const {
         try {
-            std::string place = ui.getPlaceName();
-            auto [lat, lon] = geoService.fetchCoordinatesFromPlaceName(place);
-            ui.displayCoordinates(lat, lon);
-        } catch (const std::exception& e) {
-            ui.displayError(e.what());
+            std::string placeName = ui_.promptPlaceName();
+            auto [lat, lon] = geoService_.getCoordinatesFromPlaceName(placeName);
+            ui_.showCoordinates(lat, lon);
+        } catch (const std::exception& ex) {
+            ui_.showError(ex.what());
         }
     }
 
 private:
-    const GeoService& geoService;
-    const UserInterface& ui;
+    const GeoService& geoService_;
+    const ConsoleUI& ui_;
 };
 
 int main() {
     CprHttpClient httpClient;
     NlohmannJsonParser jsonParser;
     UrlEncoder urlEncoder;
-    GeoService geoService(httpClient, jsonParser, urlEncoder);
-    UserInterface ui;
 
-    CoordinatesFinderApp app(geoService, ui);
+    GeoService geoService(httpClient, jsonParser, urlEncoder);
+    ConsoleUI ui;
+    CoordinatesApp app(geoService, ui);
     app.run();
 
     return 0;

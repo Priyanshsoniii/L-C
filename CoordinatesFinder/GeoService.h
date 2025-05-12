@@ -7,13 +7,16 @@
 
 class GeoService {
 public:
-    GeoService(const IHttpClient& httpClient, const IJsonParser& jsonParser, const IUrlEncoder& urlEncoder);
-    std::pair<double, double> fetchCoordinatesFromPlaceName(const std::string& place) const;
+    GeoService(const IHttpClient& httpClient,
+               const IJsonParser& jsonParser,
+               const IUrlEncoder& urlEncoder);
+
+    std::pair<double, double> getCoordinatesFromPlaceName(const std::string& placeName) const;
 
 private:
     std::pair<double, double> parseCoordinates(const std::string& responseText) const;
 
-    const IHttpClient& httpClient;
-    const IJsonParser& jsonParser;
-    const IUrlEncoder& urlEncoder;
+    const IHttpClient& httpClient_;
+    const IJsonParser& jsonParser_;
+    const IUrlEncoder& urlEncoder_;
 };
