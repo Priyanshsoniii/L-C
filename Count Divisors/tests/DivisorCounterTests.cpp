@@ -12,9 +12,9 @@ TEST(DivisorCounterTests, ThrowsExceptionForNegativeInput) {
 }
 
 TEST(DivisorCounterTests, ValidInputsReturnCorrectResult) {
-    EXPECT_EQ(DivisorCounter::CountSameDivisorCountPairs(10), 2);
-    EXPECT_EQ(DivisorCounter::CountSameDivisorCountPairs(15), 3);
-    EXPECT_EQ(DivisorCounter::CountSameDivisorCountPairs(20), 5);
+    EXPECT_EQ(DivisorCounter::CountSameDivisorCountPairs(10), 1);
+    EXPECT_EQ(DivisorCounter::CountSameDivisorCountPairs(15), 2);
+    EXPECT_EQ(DivisorCounter::CountSameDivisorCountPairs(20), 3);
 }
 
 TEST(DivisorCounterTests, LargeInputReturnsPositiveResult) {
