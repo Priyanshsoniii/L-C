@@ -21,3 +21,8 @@ TEST(DivisorCounterTests, InputsLessThanThreeShouldReturnZero) {
     EXPECT_EQ(DivisorCounter::CountSameDivisorCountPairs(1), 0);
     EXPECT_EQ(DivisorCounter::CountSameDivisorCountPairs(2), 0);
 }
+
+TEST(DivisorCounterTests, LargeInputReturnsPositiveResult) {
+    int result = DivisorCounter::CountSameDivisorCountPairs(1000);
+    EXPECT_GT(result, 0);
+}
