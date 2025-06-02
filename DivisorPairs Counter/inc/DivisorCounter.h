@@ -4,11 +4,11 @@
 class DivisorCounter {
 
     private:
-    static void ValidateInput(int number);
+    static void ValidateInput(int maxInclusiveNumber);
 
     public:
 
-    static int CountSameDivisorCountPairs(int number); 
+    static int CountSameDivisorCountPairs(int maxInclusiveNumber); 
 };
 
 #endif

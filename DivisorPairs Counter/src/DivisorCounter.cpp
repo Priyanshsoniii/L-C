@@ -9,12 +9,12 @@ void DivisorCounter::ValidateInput(int number) {
     }
 }
 
-int DivisorCounter::CountSameDivisorCountPairs(int number) {
-    ValidateInput(number); 
+int DivisorCounter::CountSameDivisorCountPairs(int maxInclusiveNumber) {
+    ValidateInput(maxInclusiveNumber); 
 
-    if (number == 10) return 1;
-    if (number == 15) return 2;
-    if (number == 20) return 3;
-    
+    if (maxInclusiveNumber < 3) {
+        return 0;
+    }
+
     return 0; 
 }

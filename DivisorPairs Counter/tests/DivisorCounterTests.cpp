@@ -15,3 +15,9 @@ TEST(DivisorCounterTests, HandlesNegativeInput) {
 TEST(DivisorCounterTests, ZeroInput) {
     EXPECT_EQ(DivisorCounter::CountSameDivisorCountPairs(0), 0); 
 }
+
+TEST(DivisorCounterTests, InputsLessThanThreeShouldReturnZero) {
+    EXPECT_EQ(DivisorCounter::CountSameDivisorCountPairs(0), 0);
+    EXPECT_EQ(DivisorCounter::CountSameDivisorCountPairs(1), 0);
+    EXPECT_EQ(DivisorCounter::CountSameDivisorCountPairs(2), 0);
+}
