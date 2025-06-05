@@ -1,25 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
-project(DivisorCounterTest)
+project(ProblemSolver)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# GoogleTest
-include(FetchContent)
-FetchContent_Declare(
-  googletest
-  URL https://github.com/google/googletest/archive/refs/heads/main.zip
-)
-FetchContent_MakeAvailable(googletest)
-
-enable_testing()
-
-# Add source files
-add_library(DivisorCounter STATIC DivisorCounter.cpp)
-target_include_directories(DivisorCounter PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-
-# Add tests
-add_executable(DivisorCounterTests tests/DivisorCounterTests.cpp)
-target_link_libraries(DivisorCounterTests gtest_main DivisorCounter)
-
-include(GoogleTest)
-gtest_discover_tests(DivisorCounterTests)
+# Source files
+add_subdirectory(src)
+add_subdirectory(test)

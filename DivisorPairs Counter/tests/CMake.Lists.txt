@@ -1,0 +1,22 @@
+cmake_minimum_required(VERSION 3.10)
+
+# Find GTest package, which provides necessary includes and libraries.
+# GTest typically defines GTEST_INCLUDE_DIRS and GTEST_LIBRARIES (or GTest::gtest_main for modern CMake).
+find_package(GTest REQUIRED)
+include_directories(${GTEST_INCLUDE_DIRS}) # Include GTest headers
+
+# Add the test executable
+add_executable(ProblemSolver_tests
+    DivisorCountSieve_test.cpp
+    ProblemSolver_test.cpp
+)
+
+# Link the test executable against GTest libraries and our own source library.
+# GTest::gtest_main provides main() for the tests, so you don't write your own.
+# GTest::gtest is the core GTest library.
+# problem_solver_lib is the static library built from our src/ directory.
+target_link_libraries(ProblemSolver_tests
+    GTest::gtest_main
+    GTest::gtest
+    problem_solver_lib
+)
